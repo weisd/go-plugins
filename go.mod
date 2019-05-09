@@ -12,7 +12,7 @@ require (
 	github.com/DataDog/datadog-go v0.0.0-20190405105943-4a998718e1d2 // indirect
 	github.com/GoogleCloudPlatform/cloudsql-proxy v0.0.0-20190405210948-c70a36b8193f // indirect
 	github.com/OneOfOne/xxhash v1.2.5 // indirect
-	github.com/Shopify/sarama v1.21.0
+	github.com/Shopify/sarama v1.22.1
 	github.com/afex/hystrix-go v0.0.0-20180502004556-fa1af6a1f4f5
 	github.com/agnivade/levenshtein v1.0.2 // indirect
 	github.com/aliyun/alibaba-cloud-sdk-go v0.0.0-20190404024044-fa20eadc7680 // indirect
@@ -122,7 +122,6 @@ require (
 	google.golang.org/genproto v0.0.0-20190404172233-64821d5d2107
 	google.golang.org/grpc v1.19.1
 	gopkg.in/DataDog/dd-trace-go.v1 v1.12.1
-	gopkg.in/bsm/sarama-cluster.v2 v2.1.15
 	gopkg.in/go-playground/validator.v9 v9.28.0 // indirect
 	gopkg.in/src-d/go-git-fixtures.v3 v3.4.0 // indirect
 	gopkg.in/telegram-bot-api.v4 v4.6.4

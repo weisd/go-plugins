@@ -2,7 +2,6 @@ package kafka
 
 import (
 	"context"
-
 	"github.com/micro/go-micro/broker"
 )
 
