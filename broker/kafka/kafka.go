@@ -157,6 +157,9 @@ func (k *kBroker) getSaramaClusterClient(topic string) (sarama.Client, error) {
 	if err != nil {
 		return nil, err
 	}
+	k.scMutex.Lock()
+	defer k.scMutex.Unlock()
+	k.sc = append(k.sc, cs)
 	return cs, nil
 }
 
