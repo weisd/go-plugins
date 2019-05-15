@@ -206,7 +206,7 @@ func (k *kBroker) Subscribe(topic string, handler broker.Handler, opts ...broker
 			}
 		}
 	}()
-	return &subscriber{cg: cg, opts: opt}, nil
+	return &subscriber{cg: cg, opts: opt, t: topic}, nil
 }
 
 func (k *kBroker) String() string {
