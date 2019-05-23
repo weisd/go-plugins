@@ -17,8 +17,9 @@ import (
 )
 
 var (
-	// public giphy key
-	key = "dc6zaTOxFJmzC"
+	// public giphy APIKey
+	// Deprecated
+	APIKey = "dc6zaTOxFJmzC"
 )
 
 func init() {
@@ -58,7 +59,7 @@ func Animate() command.Command {
 		u := url.Values{}
 		u.Set("q", strings.Join(args[1:], " "))
 		u.Set("limit", "1")
-		u.Set("api_key", key)
+		u.Set("api_APIKey", APIKey)
 
 		rsp, err := http.Get("http://api.giphy.com/v1/gifs/search?" + u.Encode())
 		if err != nil {
