@@ -10,7 +10,7 @@ import (
 	"sync"
 	"time"
 
-	log "github.com/micro/go-log"
+	"github.com/micro/go-log"
 	"github.com/micro/go-micro/broker"
 	"github.com/micro/go-micro/cmd"
 	"github.com/micro/go-micro/codec"
@@ -186,6 +186,11 @@ func (h *httpServer) Register() error {
 		if queue := sb.Options().Queue; len(queue) > 0 {
 			subOpts = append(subOpts, broker.Queue(queue))
 		}
+
+		if !sb.Options().AutoAck {
+			subOpts = append(subOpts, broker.DisableAutoAck())
+		}
+
 		sub, err := opts.Broker.Subscribe(sb.Topic(), handler, subOpts...)
 		if err != nil {
 			return err
