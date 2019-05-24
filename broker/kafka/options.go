@@ -50,6 +50,7 @@ func (h *consumerGroupHandler) ConsumeClaim(sess sarama.ConsumerGroupSession, cl
 		if err := h.handler(&publication{
 			m:    &m,
 			t:    msg.Topic,
+			km:   msg,
 			cg:   h.cg,
 			sess: sess,
 		}); err == nil && h.subopts.AutoAck {
