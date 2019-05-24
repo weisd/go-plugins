@@ -13,7 +13,7 @@ import (
 	"sync"
 	"time"
 
-	log "github.com/micro/go-log"
+	"github.com/micro/go-log"
 	"github.com/micro/go-micro/broker"
 	"github.com/micro/go-micro/cmd"
 	"github.com/micro/go-micro/codec"
@@ -528,6 +528,11 @@ func (g *grpcServer) Register() error {
 		if queue := sb.Options().Queue; len(queue) > 0 {
 			opts = append(opts, broker.Queue(queue))
 		}
+
+		if !sb.Options().AutoAck {
+			opts = append(opts, broker.DisableAutoAck())
+		}
+
 		sub, err := config.Broker.Subscribe(sb.Topic(), handler, opts...)
 		if err != nil {
 			return err

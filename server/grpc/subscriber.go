@@ -34,7 +34,11 @@ type subscriber struct {
 }
 
 func newSubscriber(topic string, sub interface{}, opts ...server.SubscriberOption) server.Subscriber {
-	var options server.SubscriberOptions
+
+	options := server.SubscriberOptions{
+		AutoAck: true,
+	}
+
 	for _, o := range opts {
 		o(&options)
 	}
