@@ -618,7 +618,7 @@ func (g *grpcServer) Start() error {
 		return err
 	}
 
-	log.Logf("Listening on %s", ts.Addr().String())
+	log.Logf("Server [grpc] Listening on %s", ts.Addr().String())
 	g.Lock()
 	g.opts.Address = ts.Addr().String()
 	g.Unlock()
