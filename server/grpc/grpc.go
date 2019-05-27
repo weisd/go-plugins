@@ -46,7 +46,7 @@ type grpcServer struct {
 	rpc  *rServer
 	srv  *grpc.Server
 	exit chan chan error
-	wg   sync.WaitGroup
+	wg   *sync.WaitGroup
 
 	sync.RWMutex
 	opts        server.Options
@@ -75,6 +75,7 @@ func newGRPCServer(opts ...server.Option) server.Server {
 		handlers:    make(map[string]server.Handler),
 		subscribers: make(map[*subscriber][]broker.Subscriber),
 		exit:        make(chan chan error),
+		wg:          wait(options.Context),
 	}
 
 	// configure the grpc server
@@ -154,8 +155,10 @@ func (g *grpcServer) getGrpcOptions() []grpc.ServerOption {
 }
 
 func (g *grpcServer) handler(srv interface{}, stream grpc.ServerStream) error {
-	g.wg.Add(1)
-	defer g.wg.Done()
+	if g.wg != nil {
+		g.wg.Add(1)
+		defer g.wg.Done()
+	}
 
 	fullMethod, ok := grpc.MethodFromServerStream(stream)
 	if !ok {
@@ -674,7 +677,7 @@ func (g *grpcServer) Start() error {
 		}
 
 		// wait for waitgroup
-		if wait(g.opts.Context) {
+		if g.wg != nil {
 			g.wg.Wait()
 		}
 

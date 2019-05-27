@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"sync"
 
 	"google.golang.org/grpc/codes"
 )
@@ -47,13 +48,13 @@ func convertCode(err error) codes.Code {
 	return codes.Unknown
 }
 
-func wait(ctx context.Context) bool {
+func wait(ctx context.Context) *sync.WaitGroup {
 	if ctx == nil {
-		return false
+		return nil
 	}
-	wait, ok := ctx.Value("wait").(bool)
+	wg, ok := ctx.Value("wait").(*sync.WaitGroup)
 	if !ok {
-		return false
+		return nil
 	}
-	return wait
+	return wg
 }
