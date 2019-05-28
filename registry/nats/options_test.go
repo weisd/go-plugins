@@ -9,7 +9,7 @@ import (
 
 	"github.com/go-log/log"
 	"github.com/micro/go-micro/registry"
-	"github.com/nats-io/go-nats"
+	"github.com/nats-io/nats.go"
 )
 
 var addrTestCases = []struct {
