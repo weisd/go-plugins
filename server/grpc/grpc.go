@@ -254,8 +254,14 @@ func (g *grpcServer) processRequest(stream grpc.ServerStream, service *service, 
 		function := mtype.method.Func
 		var returnValues []reflect.Value
 
-		cc := defaultGRPCCodecs[ct]
-		b, _ := cc.Marshal(argv.Interface())
+		cc, err := g.newGRPCCodec(ct)
+		if err != nil {
+			return errors.InternalServerError("go.micro.server", err.Error())
+		}
+		b, err := cc.Marshal(argv.Interface())
+		if err != nil {
+			return err
+		}
 
 		// create a client.Request
 		r := &rpcRequest{
@@ -357,6 +363,22 @@ func (g *grpcServer) processStream(stream grpc.ServerStream, service *service, m
 	}
 
 	return status.New(statusCode, statusDesc).Err()
+}
+
+func (g *grpcServer) newGRPCCodec(contentType string) (encoding.Codec, error) {
+	codecs := make(map[string]encoding.Codec)
+	if g.opts.Context != nil {
+		if v := g.opts.Context.Value(codecsKey{}); v != nil {
+			codecs = v.(map[string]encoding.Codec)
+		}
+	}
+	if c, ok := codecs[contentType]; ok {
+		return c, nil
+	}
+	if c, ok := defaultGRPCCodecs[contentType]; ok {
+		return c, nil
+	}
+	return nil, fmt.Errorf("Unsupported Content-Type: %s", contentType)
 }
 
 func (g *grpcServer) newCodec(contentType string) (codec.NewCodec, error) {
