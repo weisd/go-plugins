@@ -6,7 +6,7 @@ import (
 	"encoding/base64"
 	"fmt"
 
-	"github.com/micro/go-log"
+	"github.com/micro/go-micro/util/log"
 	"github.com/micro/go-micro/client"
 	"github.com/micro/go-micro/metadata"
 	"github.com/micro/go-micro/server"

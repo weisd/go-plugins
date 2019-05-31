@@ -14,7 +14,7 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/micro/go-log"
+	"github.com/micro/go-micro/util/log"
 	"github.com/micro/go-micro/server"
 )
 

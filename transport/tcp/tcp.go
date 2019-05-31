@@ -9,7 +9,7 @@ import (
 	"net"
 	"time"
 
-	"github.com/micro/go-log"
+	"github.com/micro/go-micro/util/log"
 	"github.com/micro/go-micro/cmd"
 	"github.com/micro/go-micro/transport"
 	maddr "github.com/micro/util/go/lib/addr"

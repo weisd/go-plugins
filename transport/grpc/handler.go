@@ -3,7 +3,7 @@ package grpc
 import (
 	"runtime/debug"
 
-	"github.com/micro/go-log"
+	"github.com/micro/go-micro/util/log"
 	"github.com/micro/go-micro/transport"
 	pb "github.com/micro/go-plugins/transport/grpc/proto"
 	"google.golang.org/grpc/peer"
