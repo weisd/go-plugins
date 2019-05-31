@@ -5,6 +5,7 @@ require (
 	github.com/Shopify/sarama v1.22.1
 	github.com/abbot/go-http-auth v0.4.1-0.20181019201920-860ed7f246ff
 	github.com/afex/hystrix-go v0.0.0-20180502004556-fa1af6a1f4f5
+	github.com/anacrolix/missinggo v1.1.0 // indirect
 	github.com/anacrolix/utp v0.0.0-20180219060659-9e0e1d1d0572
 	github.com/asim/go-awsxray v0.0.0-20161209120537-0d8a60b6e205
 	github.com/asim/go-bson v0.0.0-20160318195205-84522947cabd
@@ -16,19 +17,22 @@ require (
 	github.com/go-stomp/stomp v2.0.3+incompatible
 	github.com/golang/protobuf v1.3.1
 	github.com/gomodule/redigo v2.0.0+incompatible
+	github.com/google/gofuzz v1.0.0 // indirect
 	github.com/google/uuid v1.1.1
+	github.com/gopherjs/gopherjs v0.0.0-20190430165422-3e4dfb77656c // indirect
 	github.com/gorilla/websocket v1.4.0
+	github.com/hashicorp/go-hclog v0.9.2 // indirect
+	github.com/hashicorp/vault v1.0.3
 	github.com/hudl/fargo v1.2.0
 	github.com/json-iterator/go v1.1.6
 	github.com/juju/ratelimit v1.0.1
+	github.com/lib/pq v1.1.1 // indirect
 	github.com/micro/cli v0.2.0
 	github.com/micro/examples v0.1.0
 	github.com/micro/go-bot v1.1.0
 	github.com/micro/go-config v1.1.0
-	github.com/micro/go-log v0.1.0
-	github.com/micro/go-micro v1.2.0
-	github.com/micro/go-rcache v0.3.0
-	github.com/micro/micro v1.2.0
+	github.com/micro/go-micro v1.3.0
+	github.com/micro/micro v0.22.0
 	github.com/micro/util v0.2.0
 	github.com/minio/highwayhash v1.0.0
 	github.com/mitchellh/hashstructure v1.0.0
@@ -39,7 +43,6 @@ require (
 	github.com/opentracing/opentracing-go v1.1.0
 	github.com/prometheus/client_golang v0.9.3
 	github.com/prometheus/client_model v0.0.0-20190129233127-fd36f4220a90
-	github.com/prometheus/procfs v0.0.1 // indirect
 	github.com/rs/cors v1.6.0
 	github.com/samuel/go-zookeeper v0.0.0-20180130194729-c4fab1ac1bec
 	github.com/sirupsen/logrus v1.4.2
@@ -52,10 +55,8 @@ require (
 	go.uber.org/ratelimit v0.0.0-20180316092928-c15da0234277
 	gocloud.dev v0.15.0
 	gocloud.dev/pubsub/rabbitpubsub v0.15.0
-	golang.org/x/crypto v0.0.0-20190530122614-20be4c3c3ed5 // indirect
 	golang.org/x/net v0.0.0-20190522155817-f3200d17e092
 	golang.org/x/oauth2 v0.0.0-20190523182746-aaccbc9213b0
-	golang.org/x/sys v0.0.0-20190530182044-ad28b68e88f1 // indirect
 	google.golang.org/api v0.5.0
 	google.golang.org/genproto v0.0.0-20190530194941-fb225487d101
 	google.golang.org/grpc v1.21.0
@@ -64,6 +65,7 @@ require (
 	k8s.io/api v0.0.0-20190528154508-67ef80593b24
 	k8s.io/apimachinery v0.0.0-20190528154326-e59c2fb0a8e5
 	k8s.io/client-go v11.0.0+incompatible
+	k8s.io/utils v0.0.0-20190529001817-6999998975a7 // indirect
 )
 
 exclude (
