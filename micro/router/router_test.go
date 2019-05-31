@@ -9,8 +9,8 @@ import (
 	"net/url"
 	"testing"
 
-	"github.com/micro/go-config"
-	"github.com/micro/go-config/source/memory"
+	"github.com/micro/go-micro/config"
+	"github.com/micro/go-micro/config/source/memory"
 )
 
 func TestRouter(t *testing.T) {
@@ -72,7 +72,7 @@ func TestRouter(t *testing.T) {
 	}
 
 	b, _ := json.Marshal(apiConfig)
-	m := memory.NewSource(memory.WithData(b))
+	m := memory.NewSource(memory.WithJSON(b))
 	conf := config.NewConfig(config.WithSource(m))
 	r := NewRouter(Config(conf))
 
