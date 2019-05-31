@@ -3,6 +3,7 @@ module github.com/micro/go-plugins
 require (
 	cloud.google.com/go v0.39.0
 	github.com/Shopify/sarama v1.22.1
+	github.com/abbot/go-http-auth v0.4.1-0.20181019201920-860ed7f246ff
 	github.com/afex/hystrix-go v0.0.0-20180502004556-fa1af6a1f4f5
 	github.com/anacrolix/utp v0.0.0-20180219060659-9e0e1d1d0572
 	github.com/asim/go-awsxray v0.0.0-20161209120537-0d8a60b6e205
@@ -59,6 +60,7 @@ require (
 	google.golang.org/genproto v0.0.0-20190530194941-fb225487d101
 	google.golang.org/grpc v1.21.0
 	gopkg.in/DataDog/dd-trace-go.v1 v1.14.0
+	gopkg.in/ldap.v3 v3.0.3
 	k8s.io/api v0.0.0-20190528154508-67ef80593b24
 	k8s.io/apimachinery v0.0.0-20190528154326-e59c2fb0a8e5
 	k8s.io/client-go v11.0.0+incompatible
