@@ -21,9 +21,9 @@ import (
 	"github.com/micro/go-micro/registry"
 	proto "github.com/micro/go-plugins/broker/grpc/proto"
 	"github.com/micro/go-micro/registry/cache"
-	maddr "github.com/micro/util/go/lib/addr"
-	mnet "github.com/micro/util/go/lib/net"
-	mls "github.com/micro/util/go/lib/tls"
+	maddr "github.com/micro/go-micro/util/addr"
+	mnet "github.com/micro/go-micro/util/net"
+	mls "github.com/micro/go-micro/util/tls"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 )

@@ -12,9 +12,9 @@ import (
 	"github.com/micro/go-micro/util/log"
 	"github.com/micro/go-micro/cmd"
 	"github.com/micro/go-micro/transport"
-	maddr "github.com/micro/util/go/lib/addr"
-	mnet "github.com/micro/util/go/lib/net"
-	mls "github.com/micro/util/go/lib/tls"
+	maddr "github.com/micro/go-micro/util/addr"
+	mnet "github.com/micro/go-micro/util/net"
+	mls "github.com/micro/go-micro/util/tls"
 )
 
 type tcpTransport struct {
