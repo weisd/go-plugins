@@ -9,10 +9,10 @@ import (
 	"net"
 	"time"
 
-	"github.com/micro/go-micro/util/log"
 	"github.com/micro/go-micro/cmd"
 	"github.com/micro/go-micro/transport"
 	maddr "github.com/micro/go-micro/util/addr"
+	"github.com/micro/go-micro/util/log"
 	mnet "github.com/micro/go-micro/util/net"
 	mls "github.com/micro/go-micro/util/tls"
 )

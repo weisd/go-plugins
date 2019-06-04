@@ -10,7 +10,6 @@ import (
 	"sync"
 	"time"
 
-	"github.com/micro/go-micro/util/log"
 	"github.com/micro/go-micro/broker"
 	"github.com/micro/go-micro/cmd"
 	"github.com/micro/go-micro/codec"
@@ -18,6 +17,7 @@ import (
 	"github.com/micro/go-micro/codec/protorpc"
 	"github.com/micro/go-micro/registry"
 	"github.com/micro/go-micro/server"
+	"github.com/micro/go-micro/util/log"
 )
 
 var (

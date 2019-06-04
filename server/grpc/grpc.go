@@ -13,7 +13,6 @@ import (
 	"sync"
 	"time"
 
-	"github.com/micro/go-micro/util/log"
 	"github.com/micro/go-micro/broker"
 	"github.com/micro/go-micro/cmd"
 	"github.com/micro/go-micro/codec"
@@ -23,6 +22,7 @@ import (
 	"github.com/micro/go-micro/server"
 	"github.com/micro/go-micro/util/addr"
 	mgrpc "github.com/micro/go-micro/util/grpc"
+	"github.com/micro/go-micro/util/log"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
