@@ -13,7 +13,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/micro/go-bot/command"
+	"github.com/micro/go-micro/agent/command"
 )
 
 func init() {
