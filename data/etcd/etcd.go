@@ -5,11 +5,13 @@ import (
 	"context"
 	"log"
 
-	"github.com/micro/go-micro/sync/data"
+	"github.com/micro/go-micro/data"
+	"github.com/micro/go-micro/options"
 	client "go.etcd.io/etcd/clientv3"
 )
 
 type ekv struct {
+	options.Options
 	kv client.KV
 }
 
@@ -61,18 +63,13 @@ func (e *ekv) String() string {
 	return "etcd"
 }
 
-func NewData(opts ...data.Option) data.Data {
-	var options data.Options
-	for _, o := range opts {
-		o(&options)
-	}
+func NewData(opts ...options.Option) data.Data {
+	options := options.NewOptions(opts...)
 
 	var endpoints []string
 
-	for _, addr := range options.Nodes {
-		if len(addr) > 0 {
-			endpoints = append(endpoints, addr)
-		}
+	if e, ok := options.Values().Get("data.nodes"); ok {
+		endpoints = e.([]string)
 	}
 
 	if len(endpoints) == 0 {
@@ -88,6 +85,7 @@ func NewData(opts ...data.Option) data.Data {
 	}
 
 	return &ekv{
-		kv: client.NewKV(c),
+		Options: options,
+		kv:      client.NewKV(c),
 	}
 }

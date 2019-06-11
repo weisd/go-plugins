@@ -1,11 +1,13 @@
 package redis
 
 import (
-	"github.com/micro/go-micro/sync/data"
+	"github.com/micro/go-micro/data"
+	"github.com/micro/go-micro/options"
 	redis "gopkg.in/redis.v3"
 )
 
 type rkv struct {
+	options.Options
 	Client *redis.Client
 }
 
@@ -62,19 +64,23 @@ func (r *rkv) String() string {
 	return "redis"
 }
 
-func NewData(opts ...data.Option) data.Data {
-	var options data.Options
-	for _, o := range opts {
-		o(&options)
+func NewData(opts ...options.Option) data.Data {
+	options := options.NewOptions(opts...)
+
+	var nodes []string
+
+	if n, ok := options.Values().Get("data.nodes"); ok {
+		nodes = n.([]string)
 	}
 
-	if len(options.Nodes) == 0 {
-		options.Nodes = []string{"127.0.0.1:6379"}
+	if len(nodes) == 0 {
+		nodes = []string{"127.0.0.1:6379"}
 	}
 
 	return &rkv{
+		Options: options,
 		Client: redis.NewClient(&redis.Options{
-			Addr:     options.Nodes[0],
+			Addr:     nodes[0],
 			Password: "", // no password set
 			DB:       0,  // use default DB
 		}),
