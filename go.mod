@@ -160,7 +160,7 @@ require (
 	github.com/micro/go-bot v1.1.0 // indirect
 	github.com/micro/go-config v1.0.0 // indirect
 	github.com/micro/go-grpc v0.8.0 // indirect
-	github.com/micro/go-micro v1.6.0
+	github.com/micro/go-micro v1.6.1-0.20190611172133-f81f66c98b68
 	github.com/micro/go-rcache v0.3.0 // indirect
 	github.com/micro/go-web v1.0.0 // indirect
 	github.com/micro/micro v0.22.1
@@ -226,6 +226,7 @@ require (
 	github.com/vmware/govmomi v0.20.1 // indirect
 	github.com/vmware/vic v1.5.2 // indirect
 	github.com/xanzy/ssh-agent v0.2.1 // indirect
+	go.etcd.io/etcd v3.3.13+incompatible // indirect
 	go.mongodb.org/mongo-driver v1.0.2 // indirect
 	go.opencensus.io v0.22.0
 	go.uber.org/ratelimit v0.0.0-20180316092928-c15da0234277
@@ -238,7 +239,7 @@ require (
 	golang.org/x/image v0.0.0-20190523035834-f03afa92d3ff // indirect
 	golang.org/x/lint v0.0.0-20190409202823-959b441ac422 // indirect
 	golang.org/x/mobile v0.0.0-20190509164839-32b2708ab171 // indirect
-	golang.org/x/net v0.0.0-20190606173856-1492cefac77f
+	golang.org/x/net v0.0.0-20190607181551-461777fb6f67
 	golang.org/x/oauth2 v0.0.0-20190523182746-aaccbc9213b0
 	golang.org/x/perf v0.0.0-20190501051839-6835260b7148 // indirect
 	golang.org/x/sys v0.0.0-20190531132440-69e3a3a65b5b // indirect
@@ -259,12 +260,9 @@ require (
 	gopkg.in/src-d/go-billy.v4 v4.3.0 // indirect
 	gopkg.in/src-d/go-git-fixtures.v3 v3.5.0 // indirect
 	honnef.co/go/tools v0.0.0-20190530105301-1da3061645b4 // indirect
-	k8s.io/api v0.0.0-20190531132110-47f80a4c388d
-	k8s.io/apimachinery v0.0.0-20190531095030-97c9a3e58b4c
-	k8s.io/client-go v11.0.0+incompatible
-	k8s.io/gengo v0.0.0-20190327210449-e17681d19d3a // indirect
-	k8s.io/kube-openapi v0.0.0-20190510232812-a01b7d5d6c22 // indirect
-	k8s.io/utils v0.0.0-20190529001817-6999998975a7 // indirect
+	k8s.io/api v0.0.0-20190409092523-d687e77c8ae9
+	k8s.io/apimachinery v0.0.0-20190409092423-760d1845f48b
+	k8s.io/client-go v10.0.0+incompatible
 	sigs.k8s.io/structured-merge-diff v0.0.0-20190525122527-15d366b2352e // indirect
 	sourcegraph.com/sourcegraph/appdash v0.0.0-20190107175209-d9ea5c54f7dc // indirect
 )
@@ -284,4 +282,7 @@ replace (
 	github.com/golang/lint => github.com/golang/lint v0.0.0-20190227174305-8f45f776aaf1
 	github.com/testcontainers/testcontainer-go => github.com/testcontainers/testcontainers-go v0.0.0-20181115231424-8e868ca12c0f
 	github.com/ugorji/go/codec => github.com/ugorji/go/codec v0.0.0-20181204163529-d75b2dcb6bc8
+	k8s.io/api => k8s.io/api v0.0.0-20190409021203-6e4e0e4f393b
+	k8s.io/apimachinery => k8s.io/apimachinery v0.0.0-20190404173353-6a84e37a896d
+	k8s.io/client-go => k8s.io/client-go v11.0.1-0.20190409021438-1a26190bd76a+incompatible
 )
