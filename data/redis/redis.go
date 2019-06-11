@@ -32,7 +32,7 @@ func (r *rkv) Read(key string) (*data.Record, error) {
 	return &data.Record{
 		Key:        key,
 		Value:      val,
-		Expiration: d,
+		Expiry: d,
 	}, nil
 }
 
@@ -41,7 +41,7 @@ func (r *rkv) Delete(key string) error {
 }
 
 func (r *rkv) Write(record *data.Record) error {
-	return r.Client.Set(record.Key, record.Value, record.Expiration).Err()
+	return r.Client.Set(record.Key, record.Value, record.Expiry).Err()
 }
 
 func (r *rkv) Dump() ([]*data.Record, error) {

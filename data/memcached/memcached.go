@@ -35,7 +35,7 @@ func (m *mkv) Read(key string) (*data.Record, error) {
 	return &data.Record{
 		Key:        keyval.Key,
 		Value:      keyval.Value,
-		Expiration: time.Second * time.Duration(keyval.Expiration),
+		Expiry: time.Second * time.Duration(keyval.Expiration),
 	}, nil
 }
 
@@ -47,7 +47,7 @@ func (m *mkv) Write(record *data.Record) error {
 	return m.Client.Set(&mc.Item{
 		Key:        record.Key,
 		Value:      record.Value,
-		Expiration: int32(record.Expiration.Seconds()),
+		Expiration: int32(record.Expiry.Seconds()),
 	})
 }
 
