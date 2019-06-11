@@ -171,8 +171,6 @@ require (
 	github.com/mitchellh/hashstructure v1.0.0
 	github.com/mitchellh/pointerstructure v0.0.0-20190430161007-f252a8fd71c8 // indirect
 	github.com/munnerz/goautoneg v0.0.0-20190414153302-2ae31c8b6b30 // indirect
-	github.com/nats-io/go-nats-streaming v0.4.5 // indirect
-	github.com/nats-io/nats-server v1.4.1 // indirect
 	github.com/nats-io/nats-server/v2 v2.0.0 // indirect
 	github.com/nats-io/nats-streaming-server v0.14.2 // indirect
 	github.com/nats-io/nats.go v1.8.2-0.20190607221125-9f4d16fe7c2d
