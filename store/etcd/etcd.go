@@ -6,7 +6,7 @@ import (
 	"log"
 
 	client "github.com/coreos/etcd/clientv3"
-	"github.com/micro/go-micro/options"
+	"github.com/micro/go-micro/config/options"
 	"github.com/micro/go-micro/store"
 )
 

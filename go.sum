@@ -1113,6 +1113,8 @@ github.com/micro/go-micro v1.6.1-0.20190612065004-7a1cef46b0b2 h1:ifoIXTL72RzoEG
 github.com/micro/go-micro v1.6.1-0.20190612065004-7a1cef46b0b2/go.mod h1:kKZ8hkKVYmnoMK3OX3SZwncnr+WYCs3hdHJHfbLvMEo=
 github.com/micro/go-micro v1.6.1-0.20190612110534-000e25a4b22d h1:lNR3EhLXjV+BblOIEV9SuiTAKNNYlyldZXuyjPjGgxo=
 github.com/micro/go-micro v1.6.1-0.20190612110534-000e25a4b22d/go.mod h1:kKZ8hkKVYmnoMK3OX3SZwncnr+WYCs3hdHJHfbLvMEo=
+github.com/micro/go-micro v1.6.1-0.20190612120317-2b18b11ab180 h1:EhHpNfbcghPvyEFS1R92CxkzzHzyTYzOzLXqFoF8NMY=
+github.com/micro/go-micro v1.6.1-0.20190612120317-2b18b11ab180/go.mod h1:kKZ8hkKVYmnoMK3OX3SZwncnr+WYCs3hdHJHfbLvMEo=
 github.com/micro/go-plugins v0.21.1/go.mod h1:dNzFjp55RfRhGm7zC6tPPzbdnAPo8+Yq4DbgEWdx6gc=
 github.com/micro/go-plugins v0.22.0/go.mod h1:CJxs9uhwLs73qy1/UryI1kzPDi3Kf1BB5WPGJeNW7+8=
 github.com/micro/go-plugins v0.24.1/go.mod h1:D3aeqkF6t2bIc4W7QPAs/g4c3fJXV+V7KFXT6TOP47o=
