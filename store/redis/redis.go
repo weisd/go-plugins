@@ -1,8 +1,8 @@
 package redis
 
 import (
-	"github.com/micro/go-micro/data"
 	"github.com/micro/go-micro/options"
+	"github.com/micro/go-micro/store"
 	redis "gopkg.in/redis.v3"
 )
 
@@ -11,17 +11,17 @@ type rkv struct {
 	Client *redis.Client
 }
 
-func (r *rkv) Read(key string) (*data.Record, error) {
+func (r *rkv) Read(key string) (*store.Record, error) {
 	val, err := r.Client.Get(key).Bytes()
 
 	if err != nil && err == redis.Nil {
-		return nil, data.ErrNotFound
+		return nil, store.ErrNotFound
 	} else if err != nil {
 		return nil, err
 	}
 
 	if val == nil {
-		return nil, data.ErrNotFound
+		return nil, store.ErrNotFound
 	}
 
 	d, err := r.Client.TTL(key).Result()
@@ -29,9 +29,9 @@ func (r *rkv) Read(key string) (*data.Record, error) {
 		return nil, err
 	}
 
-	return &data.Record{
-		Key:        key,
-		Value:      val,
+	return &store.Record{
+		Key:    key,
+		Value:  val,
 		Expiry: d,
 	}, nil
 }
@@ -40,16 +40,16 @@ func (r *rkv) Delete(key string) error {
 	return r.Client.Del(key).Err()
 }
 
-func (r *rkv) Write(record *data.Record) error {
+func (r *rkv) Write(record *store.Record) error {
 	return r.Client.Set(record.Key, record.Value, record.Expiry).Err()
 }
 
-func (r *rkv) Dump() ([]*data.Record, error) {
+func (r *rkv) Dump() ([]*store.Record, error) {
 	keys, err := r.Client.Keys("*").Result()
 	if err != nil {
 		return nil, err
 	}
-	var vals []*data.Record
+	var vals []*store.Record
 	for _, k := range keys {
 		i, err := r.Read(k)
 		if err != nil {
@@ -64,12 +64,12 @@ func (r *rkv) String() string {
 	return "redis"
 }
 
-func NewData(opts ...options.Option) data.Data {
+func NewStore(opts ...options.Option) store.Store {
 	options := options.NewOptions(opts...)
 
 	var nodes []string
 
-	if n, ok := options.Values().Get("data.nodes"); ok {
+	if n, ok := options.Values().Get("store.nodes"); ok {
 		nodes = n.([]string)
 	}
 

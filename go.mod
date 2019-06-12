@@ -160,7 +160,7 @@ require (
 	github.com/micro/go-bot v1.1.0 // indirect
 	github.com/micro/go-config v1.0.0 // indirect
 	github.com/micro/go-grpc v0.8.0 // indirect
-	github.com/micro/go-micro v1.6.1-0.20190611172133-f81f66c98b68
+	github.com/micro/go-micro v1.6.1-0.20190612064620-a5412dd4a048
 	github.com/micro/go-rcache v0.3.0 // indirect
 	github.com/micro/go-web v1.0.0 // indirect
 	github.com/micro/micro v0.22.1

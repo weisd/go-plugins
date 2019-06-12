@@ -6,8 +6,8 @@ import (
 	"log"
 
 	client "github.com/coreos/etcd/clientv3"
-	"github.com/micro/go-micro/data"
 	"github.com/micro/go-micro/options"
+	"github.com/micro/go-micro/store"
 )
 
 type ekv struct {
@@ -15,17 +15,17 @@ type ekv struct {
 	kv client.KV
 }
 
-func (e *ekv) Read(key string) (*data.Record, error) {
+func (e *ekv) Read(key string) (*store.Record, error) {
 	keyval, err := e.kv.Get(context.Background(), key)
 	if err != nil {
 		return nil, err
 	}
 
 	if keyval == nil || len(keyval.Kvs) == 0 {
-		return nil, data.ErrNotFound
+		return nil, store.ErrNotFound
 	}
 
-	return &data.Record{
+	return &store.Record{
 		Key:   string(keyval.Kvs[0].Key),
 		Value: keyval.Kvs[0].Value,
 	}, nil
@@ -36,22 +36,22 @@ func (e *ekv) Delete(key string) error {
 	return err
 }
 
-func (e *ekv) Write(record *data.Record) error {
+func (e *ekv) Write(record *store.Record) error {
 	_, err := e.kv.Put(context.Background(), record.Key, string(record.Value))
 	return err
 }
 
-func (e *ekv) Dump() ([]*data.Record, error) {
+func (e *ekv) Dump() ([]*store.Record, error) {
 	keyval, err := e.kv.Get(context.Background(), "/", client.WithPrefix())
 	if err != nil {
 		return nil, err
 	}
-	var vals []*data.Record
+	var vals []*store.Record
 	if keyval == nil || len(keyval.Kvs) == 0 {
 		return vals, nil
 	}
 	for _, keyv := range keyval.Kvs {
-		vals = append(vals, &data.Record{
+		vals = append(vals, &store.Record{
 			Key:   string(keyv.Key),
 			Value: keyv.Value,
 		})
@@ -63,12 +63,12 @@ func (e *ekv) String() string {
 	return "etcd"
 }
 
-func NewData(opts ...options.Option) data.Data {
+func NewStore(opts ...options.Option) store.Store {
 	options := options.NewOptions(opts...)
 
 	var endpoints []string
 
-	if e, ok := options.Values().Get("data.nodes"); ok {
+	if e, ok := options.Values().Get("store.nodes"); ok {
 		endpoints = e.([]string)
 	}
 

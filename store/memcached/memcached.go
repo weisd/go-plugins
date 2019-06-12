@@ -10,8 +10,8 @@ import (
 	"time"
 
 	mc "github.com/bradfitz/gomemcache/memcache"
-	"github.com/micro/go-micro/data"
 	"github.com/micro/go-micro/options"
+	"github.com/micro/go-micro/store"
 )
 
 type mkv struct {
@@ -20,21 +20,21 @@ type mkv struct {
 	Client *mc.Client
 }
 
-func (m *mkv) Read(key string) (*data.Record, error) {
+func (m *mkv) Read(key string) (*store.Record, error) {
 	keyval, err := m.Client.Get(key)
 	if err != nil && err == mc.ErrCacheMiss {
-		return nil, data.ErrNotFound
+		return nil, store.ErrNotFound
 	} else if err != nil {
 		return nil, err
 	}
 
 	if keyval == nil {
-		return nil, data.ErrNotFound
+		return nil, store.ErrNotFound
 	}
 
-	return &data.Record{
-		Key:        keyval.Key,
-		Value:      keyval.Value,
+	return &store.Record{
+		Key:    keyval.Key,
+		Value:  keyval.Value,
 		Expiry: time.Second * time.Duration(keyval.Expiration),
 	}, nil
 }
@@ -43,7 +43,7 @@ func (m *mkv) Delete(key string) error {
 	return m.Client.Delete(key)
 }
 
-func (m *mkv) Write(record *data.Record) error {
+func (m *mkv) Write(record *store.Record) error {
 	return m.Client.Set(&mc.Item{
 		Key:        record.Key,
 		Value:      record.Value,
@@ -51,14 +51,14 @@ func (m *mkv) Write(record *data.Record) error {
 	})
 }
 
-func (m *mkv) Dump() ([]*data.Record, error) {
+func (m *mkv) Dump() ([]*store.Record, error) {
 	// stats
 	// cachedump
 	// get keys
 
 	var keys []string
 
-	//data := make(map[string]string)
+	//store := make(map[string]string)
 	if err := m.Server.Each(func(c net.Addr) error {
 		cc, err := net.Dial("tcp", c.String())
 		if err != nil {
@@ -129,10 +129,10 @@ func (m *mkv) Dump() ([]*data.Record, error) {
 		return nil, err
 	}
 
-	var vals []*data.Record
+	var vals []*store.Record
 
 	// concurrent op
-	ch := make(chan *data.Record, len(keys))
+	ch := make(chan *store.Record, len(keys))
 
 	for _, k := range keys {
 		go func(key string) {
@@ -160,12 +160,12 @@ func (m *mkv) String() string {
 	return "memcached"
 }
 
-func NewData(opts ...options.Option) data.Data {
+func NewStore(opts ...options.Option) store.Store {
 	options := options.NewOptions(opts...)
 
 	var nodes []string
 
-	if n, ok := options.Values().Get("data.nodes"); ok {
+	if n, ok := options.Values().Get("store.nodes"); ok {
 		nodes = n.([]string)
 	}
 
