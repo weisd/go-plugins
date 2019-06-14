@@ -12,6 +12,7 @@ import (
 )
 
 type gzipWriter struct {
+	http.Hijacker
 	io.Writer
 	http.ResponseWriter
 }
@@ -43,7 +44,8 @@ func (g *gzipper) Handler() plugin.Handler {
 			defer gz.Close()
 
 			// create http response writer
-			gzw := gzipWriter{gz, w}
+			hj, _ := w.(http.Hijacker)
+			gzw := gzipWriter{hj, gz, w}
 
 			// serve the request
 			h.ServeHTTP(gzw, r)
