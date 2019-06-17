@@ -3,7 +3,10 @@ package snssqs
 import (
 	"context"
 	"fmt"
+	"sync"
 	"time"
+	"unicode"
+	"unicode/utf8"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/arn"
@@ -23,15 +26,16 @@ const (
 	defaultMaxMessages       = 1
 	defaultVisibilityTimeout = 3
 	defaultWaitSeconds       = 10
+	defaultValidateOnPublish = false
 )
 
 // Amazon Services
 type awsServices struct {
-	svcSqs  *sqs.SQS
-	svcSns  *sns.SNS
-	svcSts  *sts.STS
-	sess    *session.Session
-	options broker.Options
+	svcSqs    *sqs.SQS
+	svcSns    *sns.SNS
+	sess      *session.Session
+	accountID string
+	options   broker.Options
 }
 
 // A subscriber (poller) to an SQS queue
@@ -201,7 +205,15 @@ func (b *awsServices) Connect() error {
 
 	b.svcSqs = sqs.New(b.sess)
 	b.svcSns = sns.New(b.sess)
-	b.svcSts = sts.New(b.sess)
+	svcSts := sts.New(b.sess)
+
+	input := &sts.GetCallerIdentityInput{}
+
+	result, err := svcSts.GetCallerIdentity(input)
+	if err != nil {
+		return fmt.Errorf("unable to determine AWS AccountId: %s", err.Error())
+	}
+	b.accountID = *result.Account
 
 	return nil
 }
@@ -220,18 +232,82 @@ func (b *awsServices) Init(opts ...broker.Option) error {
 	return nil
 }
 
+// Validate message for the lowest requirements of both SNS and SQS
+func Validate(msg *broker.Message) error {
+	// Not sure whether there are any constraints on the headers
+	// ignore them for now
+
+	// SNS requirements
+	if len(msg.Body) > 256*1024 {
+		return fmt.Errorf("message body over 256kB bytes")
+	}
+	if !utf8.Valid(msg.Body) {
+		return fmt.Errorf("message body does not consist solely of UTF-8 characters")
+	}
+
+	// SQS Requirements
+	// Only accept the following unicode ranges:
+	// #x9 | #xA | #xD | #x20 to #xD7FF | #xE000 to #xFFFD | #x10000 to #x10FFFF
+
+	numWorkers := 8
+	runeCh := make(chan rune)
+	var err error
+	waitGroup := sync.WaitGroup{}
+
+	for i := 0; i < numWorkers; i++ {
+		waitGroup.Add(1)
+		go func(wg *sync.WaitGroup, rCh <-chan rune, err *error) {
+			defer wg.Done()
+			for r := range rCh {
+				if !unicode.In(r, validSqsRunes) {
+					*err = fmt.Errorf("message body contains invalid UTF-8 characters for SQS messages")
+				}
+			}
+		}(&waitGroup, runeCh, &err)
+	}
+
+	for _, r := range string(msg.Body) {
+		if err != nil {
+			close(runeCh)
+			return err
+		}
+		runeCh <- r
+	}
+	close(runeCh)
+	waitGroup.Wait()
+
+	return err
+}
+
+func (b *awsServices) getValidateOnPublish() bool {
+	if v := b.options.Context.Value(validateOnPublishKey{}); v != nil {
+		v2 := v.(bool)
+		return v2
+	}
+	return defaultValidateOnPublish
+}
+
 // Publish publishes a message via SNS
 func (b *awsServices) Publish(topic string, msg *broker.Message, opts ...broker.PublishOption) error {
-	accountID, err := b.arnFromTopicName(topic)
-	if err != nil {
-		return err
+
+	options := broker.PublishOptions{}
+	for _, o := range opts {
+		o(&options)
+	}
+
+	if options.Context != nil {
+		if b.getValidateOnPublish() {
+			if err := Validate(msg); err != nil {
+				return err
+			}
+		}
 	}
 
 	topicArn := arn.ARN{
 		Partition: "aws",
 		Service:   "sns",
 		Region:    *b.sess.Config.Region,
-		AccountID: accountID,
+		AccountID: b.accountID,
 		Resource:  topic,
 	}.String()
 
@@ -242,8 +318,7 @@ func (b *awsServices) Publish(topic string, msg *broker.Message, opts ...broker.
 	input.MessageAttributes = copyMessageHeader(msg)
 
 	log.Logf("Publishing SNS message, %d bytes", len(msg.Body))
-	_, err = b.svcSns.Publish(input)
-	if err != nil {
+	if _, err := b.svcSns.Publish(input); err != nil {
 		return err
 	}
 
@@ -291,17 +366,6 @@ func (b *awsServices) urlFromQueueName(queueName string) (string, error) {
 		return "", fmt.Errorf("unable to determine URL for queue %s: %s", queueName, err.Error())
 	}
 	return *resultURL.QueueUrl, nil
-}
-
-func (b *awsServices) arnFromTopicName(topicName string) (string, error) {
-	input := &sts.GetCallerIdentityInput{}
-
-	result, err := b.svcSts.GetCallerIdentity(input)
-	if err != nil {
-		return "", fmt.Errorf("unable to determine ARN for topic %s: %s", topicName, err.Error())
-	}
-
-	return *result.Account, nil
 }
 
 // String returns the name of the broker plugin
