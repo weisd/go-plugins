@@ -15,3 +15,13 @@ func setSubscribeOption(k, v interface{}) broker.SubscribeOption {
 		o.Context = context.WithValue(o.Context, k, v)
 	}
 }
+
+// setPublishOption returns a function to setup a context with given value
+func setPublishOption(k, v interface{}) broker.PublishOption {
+	return func(o *broker.PublishOptions) {
+		if o.Context == nil {
+			o.Context = context.Background()
+		}
+		o.Context = context.WithValue(o.Context, k, v)
+	}
+}
