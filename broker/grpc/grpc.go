@@ -15,7 +15,7 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/micro/go-micro/broker"
-	"github.com/micro/go-micro/cmd"
+	"github.com/micro/go-micro/config/cmd"
 	merr "github.com/micro/go-micro/errors"
 	"github.com/micro/go-micro/registry"
 	"github.com/micro/go-micro/registry/cache"

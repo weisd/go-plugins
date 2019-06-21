@@ -7,7 +7,7 @@ import (
 
 	client "github.com/coreos/etcd/clientv3"
 	"github.com/micro/go-micro/config/options"
-	"github.com/micro/go-micro/store"
+	"github.com/micro/go-micro/data/store"
 )
 
 type ekv struct {
