@@ -3,7 +3,7 @@ package label
 import (
 	"context"
 
-	"github.com/micro/go-micro/selector"
+	"github.com/micro/go-micro/client/selector"
 )
 
 type labelKey struct{}

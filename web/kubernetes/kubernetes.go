@@ -10,7 +10,7 @@ import (
 	// static selector offloads load balancing to k8s services
 	// enable with MICRO_SELECTOR=static or --selector=static
 	// requires user to create k8s services
-	"github.com/micro/go-plugins/selector/static"
+	"github.com/micro/go-plugins/client/selector/static"
 )
 
 // NewService returns a web service for kubernetes

@@ -6,7 +6,7 @@ import (
 
 	"github.com/micro/go-micro/registry"
 	"github.com/micro/go-micro/registry/memory"
-	"github.com/micro/go-micro/selector"
+	"github.com/micro/go-micro/client/selector"
 )
 
 func TestDefaultSelector(t *testing.T) {
