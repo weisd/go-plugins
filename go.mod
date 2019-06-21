@@ -169,7 +169,7 @@ require (
 	github.com/pelletier/go-toml v1.4.0 // indirect
 	github.com/pkg/term v0.0.0-20190109203006-aa71e9d9e942 // indirect
 	github.com/pquerna/otp v1.2.0 // indirect
-	github.com/prometheus/client_golang v1.0.0
+	github.com/prometheus/client_golang v0.9.4
 	github.com/prometheus/client_model v0.0.0-20190129233127-fd36f4220a90
 	github.com/prometheus/tsdb v0.8.0 // indirect
 	github.com/remyoudompheng/bigfft v0.0.0-20190512091148-babf20351dd7 // indirect
@@ -249,6 +249,7 @@ exclude (
 )
 
 replace (
+  github.com/prometheus/client_golang => github.com/prometheus/client_golang v0.9.4
 	github.com/golang/lint => github.com/golang/lint v0.0.0-20190227174305-8f45f776aaf1
 	github.com/testcontainers/testcontainer-go => github.com/testcontainers/testcontainers-go v0.0.0-20181115231424-8e868ca12c0f
 	github.com/ugorji/go/codec => github.com/ugorji/go/codec v0.0.0-20181204163529-d75b2dcb6bc8
