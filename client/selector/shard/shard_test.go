@@ -4,8 +4,8 @@ import (
 	"testing"
 
 	"github.com/micro/go-micro/client"
-	"github.com/micro/go-micro/registry"
 	"github.com/micro/go-micro/client/selector"
+	"github.com/micro/go-micro/registry"
 	"github.com/micro/go-plugins/client/selector/shard"
 )
 

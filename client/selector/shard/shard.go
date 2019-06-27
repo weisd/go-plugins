@@ -4,8 +4,8 @@ import (
 	"strings"
 
 	"github.com/micro/go-micro/client"
-	"github.com/micro/go-micro/registry"
 	"github.com/micro/go-micro/client/selector"
+	"github.com/micro/go-micro/registry"
 	"github.com/minio/highwayhash"
 )
 

@@ -5,9 +5,9 @@ import (
 	"testing"
 
 	"github.com/micro/go-micro/client"
+	"github.com/micro/go-micro/client/selector"
 	"github.com/micro/go-micro/errors"
 	"github.com/micro/go-micro/registry/memory"
-	"github.com/micro/go-micro/client/selector"
 	"github.com/sony/gobreaker"
 )
 

@@ -9,8 +9,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/micro/go-micro/config/cmd"
 	"github.com/micro/go-micro/codec/json"
+	"github.com/micro/go-micro/config/cmd"
 	"github.com/micro/go-micro/server"
 	"github.com/micro/go-micro/transport"
 	"github.com/nats-io/nats.go"
