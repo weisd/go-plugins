@@ -418,6 +418,8 @@ func (h *grpcBroker) Publish(topic string, msg *broker.Message, opts ...broker.P
 		// check if secure is added in metadata
 		if node.Metadata["secure"] == "true" {
 			opts = append(opts, grpc.WithTransportCredentials(credentials.NewTLS(config)))
+		} else {
+			opts = append(opts, grpc.WithInsecure())
 		}
 
 		m := &proto.Message{
@@ -429,7 +431,8 @@ func (h *grpcBroker) Publish(topic string, msg *broker.Message, opts ...broker.P
 
 		// dial grpc connection
 		c, err := grpc.Dial(fmt.Sprintf("%s:%d", node.Address, node.Port), opts...)
-		if err == nil {
+		if err != nil {
+			log.Logf("grpc.Dial err $v", err)
 			return
 		}
 
