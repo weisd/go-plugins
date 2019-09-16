@@ -102,7 +102,7 @@ require (
 	github.com/stretchr/testify v1.3.0
 	github.com/tinylib/msgp v1.1.0
 	github.com/uber/jaeger-client-go v2.16.0+incompatible // indirect
-	go.etcd.io/etcd v3.3.12+incompatible
+	github.com/coreos/etcd v3.3.12+incompatible
 	go.opencensus.io v0.20.0
 	go.uber.org/ratelimit v0.0.0-20180316092928-c15da0234277
 	gocloud.dev v0.12.0
